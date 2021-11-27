@@ -1,0 +1,17 @@
+<div class="talk-video-container mat-elevation-z4">
+  <ng-container *ngIf="talk">
+    <app-talk-video-player [talk]="talk"></app-talk-video-player>
+    <mat-divider></mat-divider>
+    <div class="bio-container">
+      <app-talk-card-bio [talk]="talkStats"></app-talk-card-bio>
+    </div>
+    <mat-divider></mat-divider>
+  </ng-container>
+</div>
+<div>
+  <div *ngIf="relatedTalks" class="scroll-info">Up Next</div>
+  <app-talk-card *ngFor="let talk of relatedTalks" [talk]="talk" (click)="openTalk(talk)"
+                 [routerLink]="'/talk/' + talk.id + '/' + talk.permanentLink">
+  </app-talk-card>
+</div>
+
