@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 
 import * as videojs from 'videojs'
 
@@ -15,6 +25,15 @@ export class TalkVideoPlayerComponent implements AfterViewInit , OnChanges {
   @Input() talk: any
   player: any
   loading: boolean = false;
+  isLandscape = window.matchMedia("(orientation: landscape)");
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    if (this.isLandscape.matches) {
+      this.player.enterFullWindow();
+    } else {
+      this.player.exitFullWindow();
+    }
+  }
 
   constructor() {
   }
@@ -23,7 +42,6 @@ export class TalkVideoPlayerComponent implements AfterViewInit , OnChanges {
   ngAfterViewInit(): void {
     this.player = bc('bc-video-' + this.talk.video);
     this.player.play();
-    console.log(this.player);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -45,7 +63,6 @@ export class TalkVideoPlayerComponent implements AfterViewInit , OnChanges {
     s.onload = () => bc("VideoPlayer").play();*/
     this.player = bc('bc-video-' + this.talk.video);
     this.player.play();
-    console.log(this.player);
   }
 
 }

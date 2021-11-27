@@ -15,6 +15,8 @@ import { TalkVideoPlayerComponent } from './components/talk-video-player/talk-vi
 import { TalkCardBioComponent } from './components/talk-card-bio/talk-card-bio.component';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {KalimatReuseStrategy} from "./guards/kalimat-reuse-strategy";
+import {RouteReuseStrategy} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
         MatDividerModule,
         MatProgressSpinnerModule
     ],
-  providers: [],
+  providers: [
+    {provide: RouteReuseStrategy, useClass: KalimatReuseStrategy},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

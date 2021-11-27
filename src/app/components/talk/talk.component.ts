@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
@@ -12,6 +12,7 @@ export class TalkComponent implements OnInit {
   talk: any;
   relatedTalks: any;
   talkStats: any;
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -38,7 +39,7 @@ export class TalkComponent implements OnInit {
   openTalk(talk: any) {
     this.router.navigate(['talk' , talk.id , talk.permanentLink], {
       state: {talk},
-      skipLocationChange : true
+      replaceUrl: true,
     });
   }
 }
